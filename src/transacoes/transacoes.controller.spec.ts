@@ -17,7 +17,7 @@ describe('TransacoesController', () => {
 
   it('create delega ao service', async () => {
     const dto = {
-      descricao: 'Salário',
+      descricao: 'Salario',
       valor: 2000,
       tipo: 'receita' as const,
       categoria: 'Trabalho',
@@ -28,7 +28,7 @@ describe('TransacoesController', () => {
     expect(service.create).toHaveBeenCalledWith(dto);
   });
 
-  it('findAll devolve histórico e métricas do service', async () => {
+  it('findAll devolve historico e metricas do service', async () => {
     const resposta = {
       historico: [],
       metricas: { saldoTotal: 0, totalDespesas: 0, totalGastoImpulso: 0 },

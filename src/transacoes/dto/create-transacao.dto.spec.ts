@@ -20,7 +20,7 @@ async function errosEm(payload: object) {
 }
 
 describe('CreateTransacaoDto', () => {
-  it('aceita um payload válido', async () => {
+  it('aceita um payload valido', async () => {
     expect(await errosEm(valido)).toEqual([]);
   });
 
@@ -44,13 +44,13 @@ describe('CreateTransacaoDto', () => {
     expect(await errosEm({ ...valido, valor: '10' })).toEqual(['valor']);
   });
 
-  it('rejeita consumoConsciente que não seja booleano', async () => {
+  it('rejeita consumoConsciente que nao seja booleano', async () => {
     expect(await errosEm({ ...valido, consumoConsciente: 'sim' })).toEqual([
       'consumoConsciente',
     ]);
   });
 
-  it('rejeita campos obrigatórios ausentes', async () => {
+  it('rejeita campos obrigatorios ausentes', async () => {
     expect(await errosEm({})).toEqual([
       'categoria',
       'descricao',
@@ -61,5 +61,16 @@ describe('CreateTransacaoDto', () => {
 
   it('rejeita campos extras', async () => {
     expect(await errosEm({ ...valido, usuario: 'x' })).toEqual(['usuario']);
+  });
+
+  it('remove acentos de descricao e categoria', () => {
+    // entrada com acentos, escrita como escapes unicode
+    const dto = plainToInstance(CreateTransacaoDto, {
+      ...valido,
+      descricao: 'Feij\u00e3o e P\u00e3o',
+      categoria: 'Alimenta\u00e7\u00e3o',
+    });
+    expect(dto.descricao).toBe('Feijao e Pao');
+    expect(dto.categoria).toBe('Alimentacao');
   });
 });

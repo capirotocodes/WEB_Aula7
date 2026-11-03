@@ -1,9 +1,6 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
-import {
-  Transacao,
-  type TipoTransacao,
-} from './schemas/transacao.schema.js';
+import { Transacao, type TipoTransacao } from './schemas/transacao.schema.js';
 import { TransacoesService } from './transacoes.service.js';
 
 const transacao = (
@@ -61,7 +58,7 @@ describe('TransacoesService', () => {
       });
     });
 
-    it('não conta receita como gasto por impulso', () => {
+    it('nao conta receita como gasto por impulso', () => {
       expect(
         service.calcularMetricas([transacao('receita', 300, false)])
           .totalGastoImpulso,
@@ -84,7 +81,11 @@ describe('TransacoesService', () => {
           transacao('receita', 0.2),
           transacao('despesa', 0.1, false),
         ]),
-      ).toEqual({ saldoTotal: 0.2, totalDespesas: 0.1, totalGastoImpulso: 0.1 });
+      ).toEqual({
+        saldoTotal: 0.2,
+        totalDespesas: 0.1,
+        totalGastoImpulso: 0.1,
+      });
     });
   });
 
@@ -96,7 +97,7 @@ describe('TransacoesService', () => {
     expect(model.create).toHaveBeenCalledWith(dto);
   });
 
-  it('findAllComMetricas devolve histórico mais recente primeiro e métricas', async () => {
+  it('findAllComMetricas devolve historico mais recente primeiro e metricas', async () => {
     const docs = [transacao('despesa', 40, false), transacao('receita', 100)];
     exec.mockResolvedValue(docs);
 

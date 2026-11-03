@@ -8,7 +8,7 @@ import { Transacao } from './../src/transacoes/schemas/transacao.schema.js';
 import { TransacoesController } from './../src/transacoes/transacoes.controller.js';
 import { TransacoesService } from './../src/transacoes/transacoes.service.js';
 
-// Substitui o model do Mongoose para não depender do MongoDB Atlas nos testes
+// Substitui o model do Mongoose para nao depender do MongoDB Atlas nos testes
 function criarModelEmMemoria() {
   const docs: Record<string, unknown>[] = [];
   return {
@@ -53,11 +53,11 @@ describe('Transacoes (e2e)', () => {
     await app.close();
   });
 
-  it('POST e GET /transacoes devolvem histórico e métricas', async () => {
+  it('POST e GET /transacoes devolvem historico e metricas', async () => {
     await request(app.getHttpServer())
       .post('/transacoes')
       .send({
-        descricao: 'Salário',
+        descricao: 'Salario',
         valor: 2500,
         tipo: 'receita',
         categoria: 'Trabalho',
@@ -69,7 +69,7 @@ describe('Transacoes (e2e)', () => {
         descricao: 'Delivery',
         valor: 80,
         tipo: 'despesa',
-        categoria: 'Alimentação',
+        categoria: 'Alimentacao',
         consumoConsciente: false,
       })
       .expect(201);
@@ -87,7 +87,7 @@ describe('Transacoes (e2e)', () => {
     });
   });
 
-  it('POST /transacoes com tipo inválido devolve 400', async () => {
+  it('POST /transacoes com tipo invalido devolve 400', async () => {
     await request(app.getHttpServer())
       .post('/transacoes')
       .send({ descricao: 'X', valor: 10, tipo: 'investimento', categoria: 'Y' })
